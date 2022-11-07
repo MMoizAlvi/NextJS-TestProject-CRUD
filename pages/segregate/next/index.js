@@ -1,12 +1,17 @@
-import ApiArticleList from "../../../components/ApiArticle/ApiArticleList"
+import { Suspense } from 'react'
 
-const test = ({articles}) => {
-  return <ApiArticleList articles={articles}/>
-}
+import { ApiArticleList, Loading } from '../../../components/index'
+
+const ArticleIndex = ({ articles }) => (
+  <Suspense fallback={<Loading />}>
+    <ApiArticleList articles={articles}/>
+  </Suspense>
+)
 
 export const getStaticProps = async() => {
-  const res = await fetch(`http://localhost:3000/api/articles`)
+  const res = await fetch(process.env.GET_ARTICLES)
   const articles = await res.json()
+
   return {
     props: {
       articles
@@ -14,4 +19,4 @@ export const getStaticProps = async() => {
   }
 }
 
-export default test
+export default ArticleIndex

@@ -1,11 +1,16 @@
+import { Suspense } from 'react'
+
+import { Layout, Loading } from '../components/index'
+
 import '../styles/globals.css'
-import Layout from '../components/Layout/Layout'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <Suspense fallback={<Loading />}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </Suspense>
   )
 }
 

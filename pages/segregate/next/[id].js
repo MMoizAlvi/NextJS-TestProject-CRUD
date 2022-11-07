@@ -1,19 +1,23 @@
-import { useRouter } from "next/router"
-import Loading from "../../../components/Loading/Loading"
-import ArticleDetails from '../../../components/Article/ArticleDetails'
+import { Suspense } from 'react'
+import { useRouter } from 'next/router'
 
-const test = ({article}) => {
+import { ArticleDetails, Loading } from '../../../components/index'
+
+const Article = ({ article }) => {
   const router = useRouter
 
-  if (router.isFallback) {
+  if (router.isFallback)
     return <Loading />
-  }
 
-  return <ArticleDetails article={article}/>
+  return (
+    <Suspense fallback={<Loading/>}>
+      <ArticleDetails article={article}/>
+    </Suspense>
+  )
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`http://localhost:3000/api/articles`)
+  const res = await fetch(process.env.GET_ARTICLES)
   const articles = await res.json()
 
   const ids = articles.map(article => article.id)
@@ -26,8 +30,9 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps = async(context) => {
-  const res = await fetch(`http://localhost:3000/api/articles/${context.params.id}`)
+  const res = await fetch(`${process.env.GET_ARTICLES}/${context.params.id}`)
   const article = await res.json()
+
   return {
     props: {
       article
@@ -35,4 +40,4 @@ export const getStaticProps = async(context) => {
   }
 }
 
-export default test
+export default Article

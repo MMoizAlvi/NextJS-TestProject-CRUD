@@ -1,12 +1,11 @@
-import articleStyle from '../../styles/article.module.css'
-import ArticleItem from './ArticleItem'
+import { ArticleItem } from '../index'
 
-const ArticleList = ({articles}) => {
-  return(
-    <div className={articleStyle.grid}>
-      {articles.map((article) => (<ArticleItem article={article} key={article.id}/>))}
-    </div>
-  )
-}
+import articleStyle from '../../styles/article.module.css'
+
+const ArticleList = ({ articles }) => (
+  <div className={articleStyle.grid}>
+    {articles.map((article) => (<ArticleItem article={article} key={article.id}/>))}
+  </div>
+)
 
 export default ArticleList

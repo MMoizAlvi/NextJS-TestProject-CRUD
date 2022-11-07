@@ -1,20 +1,24 @@
 import Head from 'next/head'
-import ArticleList from '../components/Article/ArticleList'
+import { Suspense } from 'react'
 
-export default function Home({articles}) {
+import { ArticleList, Loading } from '../components/index'
+
+export default function Home({ articles }) {
   return (
     <div>
       <Head>
         <title>tools</title>
         <meta name='keywords' content='web, dev'/>
       </Head>
-      <ArticleList articles={articles}/>
+      <Suspense fallback={<Loading />}>
+        <ArticleList articles={articles}/>
+      </Suspense>
     </div>
   )
 }
 
 export const getStaticProps = async() => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=6`)
+  const res = await fetch(process.env.GET_POSTS)
   const articles = await res.json()
   return {
     props: {

@@ -1,9 +1,7 @@
-const Loading = () => {
-  return(
-    <>
-      <h2>Loading...</h2>
-    </>
-  )
-}
+const Loading = () => (
+  <>
+    <h2>Loading...</h2>
+  </>
+)
 
 export default Loading

@@ -1,12 +1,15 @@
-import ArticleDetails from "../../../components/Article/ArticleDetails"
+import { Suspense } from 'react'
 
-const article = ({article}) => {
+import { ArticleDetails, Loading } from '../../../components/index'
 
-  return <ArticleDetails article={article}/>
-}
+const Article = ({ article }) => (
+  <Suspense fallback={<Loading />}>
+    <ArticleDetails article={article}/>
+  </Suspense>
+)
 
 export const getServerSideProps = async (context) => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${context.params.id}`)
+  const res = await fetch(`${process.env.GET_POSTS}/${context.params.id}`)
   const article = await res.json()
 
   return {
@@ -16,4 +19,4 @@ export const getServerSideProps = async (context) => {
   }
 }
 
-export default article
+export default Article
