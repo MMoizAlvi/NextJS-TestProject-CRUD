@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 
+import articleResponse from '../../../components/Api/ArticleApi'
 import { ApiArticleList, Loading } from '../../../components/index'
 
 const ArticleIndex = ({ articles }) => (
@@ -9,7 +10,7 @@ const ArticleIndex = ({ articles }) => (
 )
 
 export const getStaticProps = async() => {
-  const res = await fetch(process.env.GET_ARTICLES)
+  const res =  await articleResponse()
   const articles = await res.json()
 
   return {

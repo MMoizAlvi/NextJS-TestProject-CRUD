@@ -1,5 +1,5 @@
-import { Header } from "../index";
-import { Nav } from "../index";
+import { Header } from '../index';
+import { Nav } from '../index';
 
 import styles from '../../styles/Layout.module.css'
 
